@@ -195,6 +195,7 @@ export default {
       if (!this.multiple) {
         // 绑定值
         this.modelValue = node[this.dynaDefProps.id];
+          this.modelValue=node.name
         // 对外暴露绑定函数
         this.$emit('node-click', node, data);
         // 隐藏菜单
