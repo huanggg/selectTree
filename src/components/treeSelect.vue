@@ -190,6 +190,36 @@ export default {
         resolve(data);
       }, 500);
     },
+     loadNode(node, resolve) {
+      //结构树接口
+      if (node.level === 0) {
+        var params = {
+          isPortal: true,
+          dimensionType: 'BUBI_RND_TEAM',
+          relativeLevel: 1,
+          parentCode: -1,
+          // MTE_TO_TENANT_CODE: 'BUOA'
+        }
+        ajax.get(this.treeURl, { params }).then(res => {
+          return resolve(res.data.result);
+        })
+
+      }
+      if (node.level >= 1) {
+        var params = {
+          isPortal: true,
+          dimensionType: 'BUBI_RND_TEAM',
+          relativeLevel: 1,
+          parentCode: node.data.code,
+          // MTE_TO_TENANT_CODE: 'BUOA'
+        }
+        console.log('node', node.data.code)
+        ajax.get(this.treeURl, { params }).then(res => {
+          console.log('this.valueresultresult', res.data.result)
+          return resolve(res.data.result);
+        })
+      }
+    },
     /* 点击节点 */
     onNodeClick (node, data) {
       if (!this.multiple) {
